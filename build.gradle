@@ -1,4 +1,4 @@
-apply plugin: 'eclipse'
+//apply plugin: 'eclipse'
 //web工程
 //apply plugin: 'eclipse-wtp'
 apply plugin: 'groovy'
@@ -48,9 +48,16 @@ task deploy{
 	copy {
 		from 'src/main/resources/properties'
 		into 'deployDir/WEB-INF/classes/properties'
-		include '*.' + platform + '.properties'
-		rename { 
-			String fileName -> fileName.replace('.'+platform, '')
-    	}
+		if(project.hasProperty('platform')) {
+			println 'aaaa'
+			include '*.' + platform + '.properties'
+			rename { 
+				String fileName -> fileName.replace('.'+platform, '')
+	   		}
+		}else{
+			println 'bbbb'
+			include '*.properties'
+			exclude '*.*.properties'
+		}
 	}
 }
