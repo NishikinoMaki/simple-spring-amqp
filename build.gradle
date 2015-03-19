@@ -1,0 +1,61 @@
+//apply plugin: 'eclipse'
+//web工程
+//apply plugin: 'eclipse-wtp'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'maven'
+//apply plugin: 'war'
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+	compile(
+		'org.springframework:spring-core:4.1.5.RELEASE',
+		'org.springframework:spring-context:4.1.5.RELEASE',
+		'org.springframework:spring-context-support:4.1.5.RELEASE',
+		'org.springframework:spring-beans:4.1.5.RELEASE',
+		'org.springframework:spring-aop:4.1.5.RELEASE',
+		'org.springframework:spring-tx:4.1.5.RELEASE',
+		'org.springframework:spring-webmvc:4.1.5.RELEASE',
+		'redis.clients:jedis:2.5.2',
+		'org.apache.commons:commons-pool2:2.2',
+		'org.springframework.data:spring-data-redis:1.4.2.RELEASE',
+		'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE',
+		'org.springframework.amqp:spring-rabbit:1.4.3.RELEASE'
+ 	)
+}
+
+sourceSets {
+  main {
+  	output.classesDir   = 'deployDir/WEB-INF/classes'
+    //output.resourcesDir = 'build/target/WEB-INF/classes'
+  }
+}
+
+task deploy{
+	delete 'deployDir'
+	copy {
+		from 'src/main/resources'
+		into 'deployDir/WEB-INF/classes'
+		include '*.xml'
+	}
+	copy {
+		from 'src/main/resources/properties'
+		into 'deployDir/WEB-INF/classes/properties'
+		if(project.hasProperty('platform')) {
+			include '*.' + platform + '.properties'
+			rename { 
+				String fileName -> fileName.replace('.'+platform, '')
+	   		}
+		}else{
+			include '*.properties'
+			exclude '*.*.properties'
+		}
+	}
+}
