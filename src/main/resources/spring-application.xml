@@ -16,15 +16,14 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:config/redis.properties</value>
-				<value>classpath:config/mongodb.properties</value>
-				<value>classpath:config/rabbit.properties</value>
+				<value>classpath:properties/redis.properties</value>
+				<value>classpath:properties/mongodb.properties</value>
+				<value>classpath:properties/rabbit.properties</value>
 			</list>
 		</property>
 	</bean>
 
 	<import resource="redis.xml" />
-	<import resource="jdbcTemplate.xml" />
 	<!-- 使用时请确保rabbitMQ服务端已经启动,否则会报队列监听异常-->
 	<import resource="rabbit.xml"/> 
 	
@@ -34,12 +33,11 @@
 	<context:component-scan base-package="nagaseiori" use-default-filters="false">
 		<!-- 扫描符合@Service @Repository的类 -->
 		<context:include-filter type="regex" expression="maki.service.*"/>
-		<context:include-filter type="regex" expression="maki.dao.*"/>
 		<context:include-filter type="regex" expression="maki.commons.component.*"/>
 	</context:component-scan>
 	
-    <bean id="SpringContextUtil" class="nagaseiori.commons.utils.SpringContextUtil"/>
-    <bean id="propertiesConfig" class="nagaseiori.commons.component.PropertiesConfig">
+    <bean id="SpringContextUtil" class="maki.commons.utils.SpringContextUtil"/>
+    <bean id="propertiesConfig" class="maki.commons.component.PropertiesConfig">
     	<property name="redis" value="classpath:config/redis.properties" />
     </bean>
 </beans>

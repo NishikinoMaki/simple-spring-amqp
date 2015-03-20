@@ -46,7 +46,7 @@
 	    </property>  
 	</bean>
 	
-	<bean class="nagaseiori.commons.utils.SimpleSpringDataRedisUtil">
+	<bean class="maki.commons.utils.SimpleSpringDataRedisUtil">
 		<property name="redisOperations" ref="stringRedisTemplate"/>
 	</bean>
 </beans>

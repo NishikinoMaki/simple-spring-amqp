@@ -1,4 +1,4 @@
-//apply plugin: 'eclipse'
+apply plugin: 'eclipse'
 //web工程
 //apply plugin: 'eclipse-wtp'
 apply plugin: 'groovy'
@@ -27,7 +27,12 @@ dependencies {
 		'org.apache.commons:commons-pool2:2.2',
 		'org.springframework.data:spring-data-redis:1.4.2.RELEASE',
 		'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE',
-		'org.springframework.amqp:spring-rabbit:1.4.3.RELEASE'
+		'org.springframework.amqp:spring-rabbit:1.4.3.RELEASE',
+		'ch.qos.logback:logback-core:1.1.2',
+		'ch.qos.logback:logback-classic:1.1.2',
+		'ch.qos.logback:logback-access:1.1.2',
+		'org.logback-extensions:logback-ext-spring:0.1.1',
+		'com.alibaba:fastjson:1.2.3'
  	)
 }
 

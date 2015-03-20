@@ -21,7 +21,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="mongodbTemplate" class="com.niiwoo.web.utils.MongodbTemplate">
+    <bean id="mongodbTemplate" class="maki.utils.MongodbTemplate">
         <constructor-arg index="0" ref="mongoClient" />
         <constructor-arg index="1" value="true" type="boolean" />
     </bean>
