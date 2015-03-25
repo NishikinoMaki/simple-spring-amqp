@@ -10,17 +10,18 @@
 	<!-- <bean id="jsonMessageConvert" class="org.springframework.amqp.support.converter.JsonMessageConverter" /> -->
 	<bean id="converterSerializer" class="org.springframework.amqp.support.converter.SerializerMessageConverter" />
 
+	<rabbit:admin id="amqpAdmin" connection-factory="rabbitConnectionFactory"/>
+
 	<rabbit:connection-factory id="rabbitConnectionFactory"
 		host="${rabbit.host}" port="${rabbit.port}" username="${rabbit.user}"
 		password="${rabbit.password}" virtual-host="${rabbit.virtualhost}" />
 		
-	<rabbit:template id="amqpTemplate" connection-factory="rabbitConnectionFactory" 
-		message-converter="converterSerializer" />
+	<rabbit:template id="amqpTemplate" connection-factory="rabbitConnectionFactory" message-converter="converterSerializer" />
 	
 	<!-- 创建队列 -->
 	<rabbit:queue id="writingDataQueue" name="${rabbit.queue.writingdbtest}" auto-delete="false" durable="true"/>
 	
-	<rabbit:fanout-exchange name="writing_queue" auto-delete="false" durable="false">
+	<rabbit:fanout-exchange name="writing_queue" auto-delete="false" durable="true">
 		<rabbit:bindings>
 			<rabbit:binding queue="writingDataQueue" />
 		</rabbit:bindings>
@@ -29,7 +30,7 @@
 	<!-- 监听队列 -->
   	<rabbit:listener-container acknowledge="auto"
 		connection-factory="rabbitConnectionFactory" concurrency="${rabbit.listener.concurrency}"
-		prefetch="${rabbit.listener.prefetch}">
+		prefetch="${rabbit.listener.prefetch}" >
 		<rabbit:listener ref="amqpWritingDataListener" queues="writingDataQueue" />
 	</rabbit:listener-container>
 </beans>

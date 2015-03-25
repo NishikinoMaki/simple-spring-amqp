@@ -1,4 +1,4 @@
-package maki.commons.componet;
+package maki.commons.component;
 
 import java.util.HashMap;
 import java.util.Map;
